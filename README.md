@@ -34,6 +34,7 @@ These are largely notes for me to document things I needed to install and why.
 * [ranger](https://github.com/ranger/ranger) - terminal file manager
   * [ranger icons](https://github.com/alexanderjeurissen/ranger_devicons) - icons for ranger
 * `AUR: ttf-font-awesome` - some necessary fonts
+* `oblogout` - logout / shutdown / restart session utility for polybar
 * `nerd-fonts-complete`
 * `xrdp` for polybar config
 * `trizen -S --needed mesa-demos vulkan-tools` - necessary Vulkan drivers for using Steam Play / Proton
