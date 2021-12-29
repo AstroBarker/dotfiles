@@ -76,7 +76,7 @@ font-3 = "MesloLGS NF:size=16;4"
 
 modules-left = launcher window xworkspaces terminal firefox filemanager
 modules-center = date
-modules-right = pulseaudio separator memory separator cpu temperature  separator wlan separator battery lockscreen session
+modules-right = pulseaudio separator memory separator cpu temperature  separator wlan separator battery session
 
 tray-background = ${colors.background}
 tray-position = none
@@ -188,14 +188,6 @@ exec = echo %{T4}%{T-}
 format-foreground = ${colors.launcher}
 format-padding = 1
 
-[module/lockscreen]
-type = custom/script
-
-click-left = i3lock-fancy
-exec = echo %{T4}%{T-}
-format-foreground = ${colors.medium}
-format-padding = 1
-
 [module/memory]
 type = internal/memory
 interval = 1
@@ -230,7 +222,7 @@ ramp-volume-foreground = ${colors.audio-on}
 [module/session]
 type = custom/script
 
-click-left = obsession-logout -p ""
+click-left = oblogout; obsession-logout -p ""
 exec = echo %{T3} 襤 %{T-}
 format-background = ${colors.background}
 format-foreground = ${colors.foreground}
