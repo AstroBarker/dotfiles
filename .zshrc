@@ -27,16 +27,16 @@ export THORNADO_MACHINE=bbarker
 export PTOOLSDIR=${HOME}/Documents/papers/paperTools
 
 ####################SNAPHU####################
-export SNEC_DIR=${HOME}/snaphu/codes/SNEC
-export SNAPHU_DIR=${HOME}/snaphu
-export PROGS=${HOME}/snaphu/codes/progs
-export PROGENITORS=${HOME}/snaphu/progenitor_models
-export SNAC_DIR=${HOME}/snaphu/codes/snac
+export SNAPHU_DIR=${HOME}/dev/snaphu
+export SNEC_DIR=${SNAPHU_DIR}/codes/SNEC
+export PROGS=${SNAPHU_DIR}/codes/progs
+export PROGENITORS=${SNAPHU_DIR}/progenitor_models
+export SNAC_DIR=${SNAPHU_DIR}/codes/snac
 export SNEC_MODELS=/Volumes/erebor/snaphu/alpha1.25_snec
 export HELMDIR=${SNAPHU_DIR}/codes/helmholtz
-export PYTHONPATH=${SNAC_DIR}:${PYTHONPATH}
+#export PYTHONPATH=${SNAC_DIR}:${PYTHONPATH}
 export PYTHONPATH=${PROGS}:${PYTHONPATH}
-export PYTHONPATH=${HELMDIR}:${PYTHONPATH}
+#export PYTHONPATH=${HELMDIR}:${PYTHONPATH}
 ################################################
 
 ####################JULIA####################
@@ -179,7 +179,7 @@ export EDITOR=/usr/bin/vim
 
 alias vi='nvim'
 alias vim='nvim'
-alias code='/usr/opt/vscodium/codium'
+alias code='/usr/bin/codium'
 alias weather='curl wttr.in'
 alias cp='cp -v'                           # Preferred 'cp' implementation
 alias mv='mv -v'                           # Preferred 'mv' implementation
@@ -258,6 +258,12 @@ extract () {
         fi
 }
 
+# Runs programs in the background, even after shell closes
+# bkr ./script.sh is now running in the background
+bkr() {
+  (nohup "$@" &>/dev/null &)
+}
+
 # STARTUP ---------- SSH KEY business
 SSH_ENV="$HOME/.ssh/environment"
 
@@ -289,16 +295,17 @@ export PATH="/usr/local/sbin:$PATH"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/barker/.local/share/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/barker/local/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/barker/.local/share/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/barker/.local/share/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "/home/barker/local/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/barker/local/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/barker/.local/share/miniconda3/bin:$PATH"
+        export PATH="/home/barker/local/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme

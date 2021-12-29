@@ -17,7 +17,7 @@ More will surely be added with time.
 
 ## Sources:
 
-Much of the inspiration for my `i3` and `polybar` setups came from combinations of materials from [Derek Taylor](https://gitlab.com/dwt1/dotfiles), the [nord polybar theme](https://github.com/Yucklys/polybar-nord-theme), and [these dotfiles](https://github.com/nicomazz/i3-polybar-config). 
+Much of the inspiration for my `i3` and `polybar` setups came from combinations of materials from [Derek Taylor](https://gitlab.com/dwt1/dotfiles), the [nord polybar theme](https://github.com/Yucklys/polybar-nord-theme), and [these dotfiles](https://github.com/cvignal/dotfiles). 
 Inspiration for the `.zshrc` came from somewhere online ... 
 I looked [here](https://jdhao.github.io/2018/12/24/centos_nvim_install_use_guide_en/) for much of my [neovim](https://neovim.io/) configuration.
 
@@ -31,5 +31,9 @@ These are largely notes for me to document things I needed to install and why.
 * [spotifyd](https://github.com/Spotifyd/spotifyd) - lightweight Spotify daemon
 * [spotify-tui](https://github.com/Rigellute/spotify-tui) - command line interface for Spotify
 * [Powerlevel10k](https://github.com/romkatv/powerlevel10k) - zsh theme
+* [ranger](https://github.com/ranger/ranger) - terminal file manager
+* [ranger icons](https://github.com/alexanderjeurissen/ranger_devicons) - icons for ranger
 * `AUR: ttf-font-awesome` - some necessary fonts
+* `nerd-fonts-complete`
+* ``xrdp`` for polybar config
 * `trizen -S --needed mesa-demos vulkan-tools` - necessary Vulkan drivers for using Steam Play / Proton
