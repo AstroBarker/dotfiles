@@ -8,10 +8,12 @@ This is largely for Linux, but there may be remnants of some Mac OS elements in 
 ## Contents:
 
 [zsh](.zshrc)
-[compton](.compton.conf)
-[neovim](.config/nvim/init.vim)
-[i3](.config/i3/config)
-[polybar](.config/polybar/config)
+[compton](compton.conf)
+[neovim](config/nvim/init.vim)
+[i3](config/i3/config)
+[polybar](config/polybar/config)
+[zathura](config/zathura)
+[ranger](config/ranger)
 
 More will surely be added with time.
 
