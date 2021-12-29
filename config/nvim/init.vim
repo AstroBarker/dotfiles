@@ -1,3 +1,5 @@
+set number
+
 set notermguicolors
 hi Terminal ctermbg=none
 autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
@@ -19,6 +21,10 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
 
+" Style plugins
+Plug 'tpope/vim-sleuth'
+Plug 'editorconfig/editorconfig-vim'
+
 " auto completion
 
 Plug 'davidhalter/jedi-vim'
@@ -30,21 +36,31 @@ let g:jedi#use_splits_not_buffers = "right"
 
 let mapleader=","
 
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  else
-	    Plug 'Shougo/deoplete.nvim'
-	      Plug 'roxma/nvim-yarp'
-	        Plug 'roxma/vim-hug-neovim-rpc'
-	endif
-	let g:deoplete#enable_at_startup = 1
-Plug 'zchee/deoplete-jedi'
+"if has('nvim')
+"  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"  else
+"	    Plug 'Shougo/deoplete.nvim'
+"	    Plug 'roxma/nvim-yarp'
+"	    Plug 'roxma/vim-hug-neovim-rpc'
+"	endif
+"	let g:deoplete#enable_at_startup = 1
+" Plug 'zchee/deoplete-jedi'
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+" Completion
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+"fzf tree
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" git
+Plug 'airblade/vim-gitgutter'
 
 " status bar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme='deus' " <theme> is a valid theme name
+let g:airline_theme='zenburn' " <theme> is a valid theme name
 
 " input quotes and brackets as pairs
 Plug 'jiangmiao/auto-pairs'
