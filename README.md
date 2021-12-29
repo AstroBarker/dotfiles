@@ -38,3 +38,4 @@ These are largely notes for me to document things I needed to install and why.
 * `nerd-fonts-complete`
 * `xrdp` for polybar config
 * `trizen -S --needed mesa-demos vulkan-tools` - necessary Vulkan drivers for using Steam Play / Proton
+* Some [notes](https://pswu.dev/manjaro-on-macbook-pro/) for running on a Macbook.
