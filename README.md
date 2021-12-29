@@ -32,8 +32,8 @@ These are largely notes for me to document things I needed to install and why.
 * [spotify-tui](https://github.com/Rigellute/spotify-tui) - command line interface for Spotify
 * [Powerlevel10k](https://github.com/romkatv/powerlevel10k) - zsh theme
 * [ranger](https://github.com/ranger/ranger) - terminal file manager
-* [ranger icons](https://github.com/alexanderjeurissen/ranger_devicons) - icons for ranger
+  * [ranger icons](https://github.com/alexanderjeurissen/ranger_devicons) - icons for ranger
 * `AUR: ttf-font-awesome` - some necessary fonts
 * `nerd-fonts-complete`
-* ``xrdp`` for polybar config
+* `xrdp` for polybar config
 * `trizen -S --needed mesa-demos vulkan-tools` - necessary Vulkan drivers for using Steam Play / Proton
