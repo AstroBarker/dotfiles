@@ -43,7 +43,7 @@ What | Why
 `polybar` | Status bar.
 `xrdp` | Used for settings in polybar.
 `ranger` | File explorer that can display pictures on the terminal.
-`[ranger icons](https://github.com/alexanderjeurissen/ranger_devicons)` | icons for ranger
+`ranger icons` | icons for ranger
 `zathura` | PDF, EPUB and CBR viewer. Lovely.
 `zsh` | Zsh shell.
 `powerlevel10k` | responsive zsh theme.
