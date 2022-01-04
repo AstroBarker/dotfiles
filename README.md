@@ -6,16 +6,16 @@ This is largely for Linux, but there may be remnants of some Mac OS elements in 
 
 ## Contents:
 
-[zsh](.zshrc)
-[compton](.compton.conf)
-[neovim](config/nvim/init.vim)
-[i3](config/i3/config)
-[polybar](config/polybar/config)
-[zathura](config/zathura)
-[ranger](config/ranger)
-[rofi](config/rofi)
-[dunst](config/dunst)
-[kitty](config/kitty)
+- [zsh](.zshrc)
+- [compton](.compton.conf)
+- [neovim](config/nvim/init.vim)
+- [i3](config/i3/config)
+- [polybar](config/polybar/config)
+- [zathura](config/zathura)
+- [ranger](config/ranger)
+- [rofi](config/rofi)
+- [dunst](config/dunst)
+- [kitty](config/kitty)
 
 More will surely be added with time.
 
@@ -36,13 +36,13 @@ What | Why
 `blueman` | bluetooth controller.
 `spotifyd` | lightweight Spotify daemon.
 `spotify-tui` | CLI for Spotify.
-`gtk` | Sometimes I use GUI apps. That's what this is about.
+`gtk` | GUI support.
 `i3-gaps` | My window manager of choice at the moment. 
-`neofetch` | Config for script that displays info about the system.
+`neofetch` | Script that displays info about the system.
 `nvim` | NeoVim. Fork of Vim. Best text editor (?).
 `polybar` | Status bar.
 `xrdp` | Used for settings in polybar.
-`ranger` | File explorer that can display pictures on the terminal.
+`ranger` | Lightweight terminal-based file manager.
 `ranger icons` | icons for ranger
 `zathura` | PDF, EPUB and CBR viewer. Lovely.
 `zsh` | Zsh shell.
