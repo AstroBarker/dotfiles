@@ -76,7 +76,7 @@ font-3 = "MesloLGS NF:size=16;4"
 
 modules-left = launcher window xworkspaces terminal firefox filemanager
 modules-center = date
-modules-right = pulseaudio separator memory separator cpu temperature  separator wlan separator battery session
+modules-right = checkupdates pulseaudio separator memory separator cpu temperature  separator wlan separator battery powermenu separator
 
 tray-background = ${colors.background}
 tray-position = none
@@ -170,6 +170,24 @@ format-underline = ${colors.foreground}
 ;format-background = ${colors.background}
 format-foreground = ${colors.foreground}
 label-font = 3
+
+[module/powermenu]
+type = custom/text
+content = %{T1}襤%{T-}
+click-left = ~/.config/rofi/powermenu.sh
+content-background = ${colors.bg}
+content-foreground = ${colors.fg}
+;content-padding = 1
+margin-right = 0
+
+[module/checkupdates]
+type = custom/script
+exec = ~/.config/polybar/scripts/checkupdates.sh
+interval = 21600s
+label = %{T1} %{T-}%{T2}%output%%{T-}
+format-foreground = ${colors.yellow}
+format-background = ${colors.background}
+;format-underline = #FFBB00
 
 [module/filemanager]
 type = custom/script
@@ -270,17 +288,10 @@ type = internal/network
 interface = wlp4s0
 interval = 1.0
 
-format-connected = <ramp-signal> <label-connected>
-format-connected-padding = 1
-;format-connected-prefix = %{T3}直%{T-}
-;format-connected-prefix-foreground = ${colors.medium}
-label-connected = "  %downspeed%"
-label-connected-foreground = ${colors.medium}
+label-connected = "%{A1:~/.config/rofi/rofi-wifi-menu.sh &:}%{T2}直%{T-} %{T2}%downspeed%%{T-}%{A}" 
+label-disconnected = "%{A1:~/.config/rofi/rofi-wifi-menu.sh &:}%{T2}睊%{T-} %{T2}Disconnected%{T-}%{A}"
 
-format-disconnected = <label-disconnected>
-format-disconnected-padding = 1
-;format-disconnected-prefix = %{T3}睊%{T-}
-label-disconnected = %{T3}睊%{T-}
+label-connected-foreground = ${colors.medium}
 label-disconnected-foreground = ${colors.low}
 
 ramp-signal-0 = %{T3}直%{T-}
