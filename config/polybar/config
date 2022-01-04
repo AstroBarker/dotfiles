@@ -76,7 +76,7 @@ font-3 = "MesloLGS NF:size=16;4"
 
 modules-left = launcher window xworkspaces terminal firefox filemanager
 modules-center = date
-modules-right = checkupdates pulseaudio separator memory separator cpu temperature  separator wlan separator battery powermenu separator
+modules-right = checkupdates pulseaudio separator memory separator cpu temperature separator wlan separator battery powermenu
 
 tray-background = ${colors.background}
 tray-position = none
@@ -173,7 +173,7 @@ label-font = 3
 
 [module/powermenu]
 type = custom/text
-content = %{T1}襤%{T-}
+content = %{T1}襤  %{T-} 
 click-left = ~/.config/rofi/powermenu.sh
 content-background = ${colors.bg}
 content-foreground = ${colors.fg}
