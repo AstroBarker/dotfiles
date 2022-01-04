@@ -27,7 +27,7 @@ Plug 'editorconfig/editorconfig-vim'
 
 " auto completion
 
-Plug 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
 " disable autocompletion, because we use deoplete for completion
 let g:jedi#completions_enabled = 0
 
@@ -45,7 +45,7 @@ let mapleader=","
 "	endif
 "	let g:deoplete#enable_at_startup = 1
 " Plug 'zchee/deoplete-jedi'
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 " Completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
