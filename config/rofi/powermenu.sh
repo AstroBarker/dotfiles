@@ -31,7 +31,7 @@ then
     # /home/$USER/.config/bspwm/scripts/i3lock-fancy/i3lock-fancy.sh
 elif [ "$selected_option" == "$logout" ]
 then
-    bspc quit
+    i3-msg exit
 elif [ "$selected_option" == "$shutdown" ]
 then
     systemctl poweroff
