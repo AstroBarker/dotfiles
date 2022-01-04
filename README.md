@@ -35,6 +35,7 @@ These are largely notes for me to document things I needed to install and why.
 * [Powerlevel10k](https://github.com/romkatv/powerlevel10k) - zsh theme
 * [ranger](https://github.com/ranger/ranger) - terminal file manager
   * [ranger icons](https://github.com/alexanderjeurissen/ranger_devicons) - icons for ranger
+* betterlockscreen - for powermenu and such things.
 * `AUR: ttf-font-awesome` - some necessary fonts
 * `oblogout` - logout / shutdown / restart session utility for polybar
 * `nerd-fonts-complete`
