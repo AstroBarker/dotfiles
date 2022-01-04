@@ -29,16 +29,14 @@ font xft:URWGothic-Book 11
 floating_modifier $mod
 
 # start a $myTerm
-set $myTerm xfce4-terminal
+set $myTerm kitty
 bindsym $mod+Return exec $myTerm
 
 # kill focused window
 bindsym $mod+Shift+c kill
 
 # start program launcher
-#bindsym $mod+Shift+Return exec --no-startup-id rofi -show run
-bindsym $mod+d exec --no-startup-id  rofi -combi-modi window#drun -show combi -modi combi -show-icons -theme "DarkBlue" -font "mono 24"
-
+bindsym --release $mod+d exec rofi -show run
 
 # Apps Launched with <SUPER> + <SHIFT> + <KEYPAD 1-9>
 # bindsym $mod+Shift+KP_2 exec $myTerm -e joplin
@@ -47,28 +45,29 @@ bindsym $mod+d exec --no-startup-id  rofi -combi-modi window#drun -show combi -m
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
 ################################################################################################
 
-exec --no-startup-id volumeicon
+#exec --no-startup-id volumeicon
 #exec --no-startup-id pulseaudio
 #exec --no-startup-id pa-applet
 
-bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+
-bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%-
-bindsym XF86AudioMute exec amixer -D pulse sset Master toggle
+# bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+
+# bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%-
+# bindsym XF86AudioMute exec amixer -D pulse sset Master toggle
+bindsym XF86AudioRaiseVolume exec pulseaudio-ctl up 5% 
+bindsym XF86AudioLowerVolume exec pulseaudio-ctl down 5%
+bindsym XF86AudioMute exec pulseaudio-ctl mute
 
 ################################################################################################
 
 # Screen brightness controls
-# bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
-# bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
+bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
 
 # Start Applications
-bindsym $mod+Ctrl+b exec $myTerm -e 'bmenu'
 bindsym $mod+F1 exec firefox
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
 bindsym Print exec --no-startup-id i3-scrot
 bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
 bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
-bindsym $mod+Ctrl+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
 # focus_follows_mouse no
@@ -194,8 +193,6 @@ for_window [class="GParted"] floating enable border normal
 for_window [title="i3_help"] floating enable sticky enable border normal
 for_window [class="Lightdm-gtk-greeter-settings"] floating enable
 for_window [class="Lxappearance"] floating enable sticky enable border normal
-for_window [class="Manjaro-hello"] floating enable
-for_window [class="Manjaro Settings Manager"] floating enable border normal
 for_window [title="MuseScore: Play Panel"] floating enable
 for_window [class="Nitrogen"] floating enable sticky enable border normal
 for_window [class="Oblogout"] fullscreen enable
@@ -270,16 +267,16 @@ mode "resize" {
 bindsym $mod+9 exec --no-startup-id blurlock
 
 # Autostart applications
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh dark
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nitrogen --restore #; sleep 1; picom --config ~/.config/picom/picom.conf
-exec --no-startup-id numlockx off
-exec --no-startup-id nm-applet
-exec --no-startup-id xfce4-power-manager
-exec --no-startup-id pulseaudio -D
+# exec --no-startup-id numlockx off
+# exec --no-startup-id nm-applet
+# exec --no-startup-id xfce4-power-manager
+# exec_always --no-startup-id pulseaudio -D
 # exec --no-startup-id xautolock -time 10 -locker blurlock
-exec_always --no-startup-id ff-theme-util
-exec_always --no-startup-id fix_xcursor
+# exec_always --no-startup-id ff-theme-util
+# exec_always --no-startup-id fix_xcursor
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
