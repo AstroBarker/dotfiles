@@ -77,7 +77,7 @@ font-3 = "MesloLGS NF:size=16;4"
 
 modules-left = launcher window xworkspaces terminal firefox filemanager
 modules-center = date
-modules-right = checkupdates pulseaudio separator memory separator cpu temperature separator wlan separator battery powermenu
+modules-right = updates pulseaudio separator memory separator cpu temperature separator wlan separator battery powermenu
 
 tray-background = ${colors.background}
 tray-position = none
@@ -181,10 +181,10 @@ content-foreground = ${colors.fg}
 ;content-padding = 1
 margin-right = 0
 
-[module/checkupdates]
+[module/updates]
 type = custom/script
-exec = ~/.config/polybar/scripts/checkupdates.sh
-interval = 21600s
+exec = ~/polybar-scripts/updates-pacman-aurhelper.sh
+interval = 600
 label = %{T1} %{T-}%{T2}%output%%{T-}
 format-foreground = ${colors.yellow}
 format-background = ${colors.background}
