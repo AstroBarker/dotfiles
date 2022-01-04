@@ -10,7 +10,7 @@ set $mod Mod4
 # workspace_layout tabbed <stacking|tabbed>
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
-new_window pixel 1
+new_window pixel 2
 new_float normal
 
 # Hide borders
@@ -18,7 +18,7 @@ hide_edge_borders none
 
 # change borders
 bindsym $mod+u border none
-bindsym $mod+y border pixel 1
+bindsym $mod+y border pixel 2
 bindsym $mod+n border normal
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -311,13 +311,13 @@ set_from_resource $term_color15    color15
 
 # Theme colors
 # class                   border  backgr. text    indic.   child_border
-  client.focused          #556064 #556064 #80FFF9 #FDF6E3
-  client.focused_inactive #2F3D44 #2F3D44 #AD69AF #454948
-  client.unfocused        #2F3D44 #2F3D44 #AD69AF #454948
-  client.urgent           #CB4B16 #FDF6E3 #AD69AF #268BD2
-  client.placeholder      #000000 #0c0c0c #ffffff #000000 
+client.focused          #556064 #556064 #80FFF9 #FDF6E3 #ebdbb2
+client.focused_inactive #2F3D44 #2F3D44 #AD69AF #454948 #a89984
+client.unfocused        #2F3D44 #2F3D44 #AD69AF #454948 #32302f
+client.urgent           #CB4B16 #FDF6E3 #AD69AF #268BD2 #d65d0e
+client.placeholder      #000000 #0c0c0c #ffffff #000000 
 
-  client.background       #2B2C2B
+client.background       #2B2C2B
 
 #############################
 ### settings for i3-gaps: ###
