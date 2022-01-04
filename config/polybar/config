@@ -184,7 +184,7 @@ type = custom/script
 
 click-left = rofi -show drun
 click-right = rofi -show run
-exec = echo %{T4}%{T-}
+exec = echo %{T4}%{T-}
 format-foreground = ${colors.launcher}
 format-padding = 1
 
@@ -333,7 +333,7 @@ format-padding = 1
 [module/terminal]
 type = custom/script
 
-click-left = konsole ; x-terminal-emulator
+click-left = kitty ; x-terminal-emulator
 exec = echo %{T4}%{T-}
 format-foreground = ${colors.terminal}
 format-padding = 1
