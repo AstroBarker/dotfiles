@@ -1,11 +1,13 @@
-set number
+" Brandon Barker's neovim config. 
+" Feel free to take anything
 
+set number
 
 set notermguicolors
 hi Terminal ctermbg=none
 autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
 
-" Indentation settings -- 4 spaces
+" Indentation settings -- 2 spaces
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
@@ -14,6 +16,10 @@ set smartindent
 
 " do NOT expand tabulations in Makefiles:
 autocmd FileType make setlocal noexpandtab
+
+" set leader key
+nnoremap <SPACE> <Nop>
+map <Space> <Leader>
 
 " ===== Plugins ======
 call plug#begin('~/.local/share/nvim/plugged')
@@ -35,30 +41,20 @@ let g:jedi#completions_enabled = 0
 " open the go-to function in split, not another buffer
 let g:jedi#use_splits_not_buffers = "right"
 
-let mapleader=","
-
-"if has('nvim')
-"  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"  else
-"	    Plug 'Shougo/deoplete.nvim'
-"	    Plug 'roxma/nvim-yarp'
-"	    Plug 'roxma/vim-hug-neovim-rpc'
-"	endif
-"	let g:deoplete#enable_at_startup = 1
-" Plug 'zchee/deoplete-jedi'
-" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-Plug 'nvim-treesitter/nvim-treesitter' ", {'do': ':TSUpdate'}
+" Telescope Required
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
-" or                                , { 'branch': '0.1.x' }
 
+" Telescope Optional
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+Plug 'fannheyward/telescope-coc.nvim'
+"  devicons
+Plug 'kyazdani42/nvim-web-devicons'
+
+"
 " Completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-"fzf tree
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 
 " git
 Plug 'airblade/vim-gitgutter'
@@ -72,11 +68,17 @@ let g:airline_theme='zenburn' " <theme> is a valid theme name
 Plug 'jiangmiao/auto-pairs'
 call plug#end()
 
+" theme
 colorscheme gruvbox
+
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
-nnoremap <leader>fr <cmd>Files<cr>
+" Telescope Configs / Extension Settings
+lua require("barker")
+nnoremap <C-/> <cmd>lua require('barker').curr_buff()<cr>
+
+nnoremap <F4> :lua package.loaded.barker = nil<cr>:source ~/.config/nvim/init.vim<cr>
