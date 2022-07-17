@@ -48,13 +48,20 @@ Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 
 " Telescope Optional
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
-Plug 'fannheyward/telescope-coc.nvim'
+
 "  devicons
 Plug 'kyazdani42/nvim-web-devicons'
 
-"
-" Completion
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" LSP
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 
 " git
 Plug 'airblade/vim-gitgutter'
@@ -82,3 +89,5 @@ lua require("barker")
 nnoremap <C-/> <cmd>lua require('barker').curr_buff()<cr>
 
 nnoremap <F4> :lua package.loaded.barker = nil<cr>:source ~/.config/nvim/init.vim<cr>
+
+" LSP
