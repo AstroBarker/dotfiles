@@ -54,6 +54,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
+Plug 'kabouzeid/nvim-lspinstall'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -66,7 +67,10 @@ Plug 'saadparwaiz1/cmp_luasnip'
 " git
 Plug 'airblade/vim-gitgutter'
 
-" status bar
+" vimtex
+Plug 'lervag/vimtex'
+
+"" status bar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 let g:airline_theme='zenburn' " <theme> is a valid theme name
