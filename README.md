@@ -7,7 +7,7 @@ This is largely for Linux, but there may be remnants of some Mac OS elements in 
 ## Contents:
 
 - [zsh](.zshrc)
-- [compton](.compton.conf)
+- [picom](picom.conf)
 - [neovim](config/nvim/init.vim)
 - [i3](config/i3/config)
 - [polybar](config/polybar/config)
@@ -26,7 +26,7 @@ These are largely notes for me to document things I needed to install and why.
 What | Why
 ------------ | -------------
 `kitty` | terminal emulator.
-`compton` | Composite manager. Needed for terminal opacity.
+`picom` | Composite manager. Needed for terminal opacity.
 `betterlockscreen` | Nice, light lock screen. For powermenu.
 `trizen` | AUR helper.
 `nitrogen` | lightweight GUI for setting desktop background.
@@ -47,3 +47,5 @@ What | Why
 `zathura` | PDF, EPUB and CBR viewer. Lovely.
 `zsh` | Zsh shell.
 `powerlevel10k` | responsive zsh theme.
+`just` | command runner
+`delta` | git syntax highlighter

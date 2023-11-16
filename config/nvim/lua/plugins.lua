@@ -19,6 +19,7 @@ local status_ok, packer = pcall(require, "packer")
 if not status_ok then
   return
 end
+vim.cmd [[packadd packer.nvim]]
 
 -- Have packer use a popup window
 packer.init({
@@ -38,6 +39,7 @@ return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
   use 'tpope/vim-sleuth'
+  use { "ellisonleao/gruvbox.nvim" }
 
   --- Telescope
   use {
@@ -110,9 +112,17 @@ return require('packer').startup(function(use)
   --- vimtex
   use 'lervag/vimtex'
 
+  --- devicons
+  use { "nvim-tree/nvim-web-devicons" }
+
   --- status bar
-  use 'vim-airline/vim-airline'
-  use 'vim-airline/vim-airline-themes'
+  use {
+    'nvim-lualine/lualine.nvim',
+    config = [[ require("plugins/lualine") ]],
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  }
+  ---use 'vim-airline/vim-airline'
+  ---use 'vim-airline/vim-airline-themes'
 
   -- () {} []
   use 'jiangmiao/auto-pairs'

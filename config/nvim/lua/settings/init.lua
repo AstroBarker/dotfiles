@@ -16,4 +16,5 @@ exec "hi Terminal ctermbg=none"
 exec "autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE"
 exec "autocmd FileType make setlocal noexpandtab"
 exec "colorscheme gruvbox"
+exec "let g:vimtex_view_method = 'zathura'"
 ]])
