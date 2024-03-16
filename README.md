@@ -26,6 +26,7 @@ These are largely notes for me to document things I needed to install and why.
 What | Why
 ------------ | -------------
 `kitty` | terminal emulator.
+`alacritty` | terminal emulator.
 `picom` | Composite manager. Needed for terminal opacity.
 `betterlockscreen` | Nice, light lock screen. For powermenu.
 `trizen` | AUR helper.
@@ -49,3 +50,4 @@ What | Why
 `powerlevel10k` | responsive zsh theme.
 `just` | command runner
 `delta` | git syntax highlighter
+`slides` | terminal slideshow
