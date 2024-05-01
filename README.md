@@ -48,6 +48,9 @@ What | Why
 `zathura` | PDF, EPUB and CBR viewer. Lovely.
 `zsh` | Zsh shell.
 `powerlevel10k` | responsive zsh theme.
-`just` | command runner
 `delta` | git syntax highlighter
 `slides` | terminal slideshow
+`tidy` | html formatter
+`ruff` | python linter/formatter
+`jabref` | bibtex gui, tooling
+`feh` | image viewer
