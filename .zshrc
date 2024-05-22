@@ -51,7 +51,7 @@ alias julia='/usr/opt/julia-1.6.1/bin/julia'
 
 # set OMP_NUM_THREADS to be the number of cores on your machine
 export OMP_NUM_THREADS=8
-export OMPI_CXX=g++-10
+#export OMPI_CXX=g++-10
 ############################################
 
 
@@ -174,7 +174,7 @@ export EDITOR=/usr/bin/nvim
 
 alias vi='nvim'
 alias vim='nvim'
-alias code='/usr/bin/codium'
+#alias code='/usr/bin/codium'
 alias weather='curl wttr.in'
 alias cp='cp -v'                           # Preferred 'cp' implementation
 alias mv='mv -v'                           # Preferred 'mv' implementation
@@ -199,9 +199,6 @@ alias show_options='shopt'                  # Show_options: display bash options
 alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
 alias cic='set completion-ignore-case On'   # cic:          Make tab-completion case-insensitive
 mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
-trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
-ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
-alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file on MacOS Desktop
 alias acf='ssh -XY barker5@duo.acf.utk.edu'
 alias galilinux='ssh brandon@galilinux.pi.infn.it'
 alias rm='rm -i'
@@ -213,9 +210,10 @@ alias thornado='cd $THORNADO_DIR'
 alias snec='cd $SNEC_DIR'
 alias snaphu='cd $SNAPHU_DIR'
 
-alias gcc='gcc-10'
-alias g++='g++-10'
-alias mpic++='mpic++ -std=c++11'
+# compilers
+#alias gcc='gcc-10'
+#alias g++='g++-10'
+#alias mpic++='mpic++ -std=c++11'
 
 #
 #alias gcc='gcc-10'
@@ -228,7 +226,6 @@ alias mpic++='mpic++ -std=c++11'
 zipf () { zip -r "$1".zip "$1" ; }          # zipf:         To create a ZIP archive of a folder
 alias numFiles='echo $(ls -1 | wc -l)'      # numFiles:     Count of non-hidden files in current dir
 tarc () { tar -cvzf "$1".tar.gz "$1" ; }          # zipf:         To create a tar.gz
-goto () { cd $(python goto.py $1) }
 
 #   extract:  Extract most know archives with one command
 #   ---------------------------------------------------------
@@ -241,6 +238,7 @@ extract () {
         *.rar)       unrar e $1     ;;
         *.gz)        gunzip $1      ;;
         *.tar)       tar xf $1      ;;
+        *.tbz)      tar xjf $1     ;;
         *.tbz2)      tar xjf $1     ;;
         *.tgz)       tar xzf $1     ;;
         *.zip)       unzip $1       ;;
@@ -302,5 +300,7 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+conda deactivate
 
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
