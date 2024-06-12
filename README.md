@@ -56,3 +56,4 @@ What | Why
 `uv` | Rust based pip alternative from Astral-sh
 `jabref` | bibtex gui, tooling, reference manager
 `feh` | image viewer
+`bibtex-tidy` | bibtex formatter
