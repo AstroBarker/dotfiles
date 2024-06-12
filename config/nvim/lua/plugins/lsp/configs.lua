@@ -21,7 +21,7 @@ local servers = {
   "sumneko_lua",
   "html",
   "ccls",
-  "pyright",
+  "python-lsp-server",
   "bashls",
   "tsserver",
 	--[[ "csharp_ls" ]]

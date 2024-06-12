@@ -11,7 +11,7 @@ local servers = {
     "tsserver",
     "bashls",
     "cmake",
-    "pyright",
+---    "py-lsp",
     "rust_analyzer",
     "ccls"
 }
