@@ -10,11 +10,13 @@ fi
 
 ZSH_DISABLE_COMPFIX=true
 
+export PACMAN=pacman
+
 ####################THORNADO####################
-export WEAKLIB_DIR=${HOME}/ornl_ut/codes/weaklib
-export THORNADO_DIR=${HOME}/ornl_ut/codes/thornado
-export POSEIDON_DIR=${HOME}/ornl_ut/codes/poseidon
-export AMREX_DIR=${HOME}/ornl_ut/codes/amrex
+export WEAKLIB_DIR=${HOME}/ornl/codes/weaklib
+export THORNADO_DIR=${HOME}/ornl/codes/thornado
+export POSEIDON_DIR=${HOME}/ornl/codes/poseidon
+export AMREX_DIR=${HOME}/ornl/codes/amrex
 export AMREX_HOME=${AMREX_DIR}
 export THORNADO_HOME=${THORNADO_DIR}
 export WEAKLIB_HOME=${WEAKLIB_DIR}
@@ -27,31 +29,38 @@ export THORNADO_MACHINE=bbarker
 export PTOOLSDIR=${HOME}/Documents/papers/paperTools
 
 ####################SNAPHU####################
-export SNAPHU_DIR=${HOME}/dev/snaphu
+export SNAPHU_DIR=${HOME}/snaphu
 export SNEC_DIR=${SNAPHU_DIR}/codes/SNEC
 export PROGS=${SNAPHU_DIR}/codes/progs
 export PROGENITORS=${SNAPHU_DIR}/progenitor_models
 export SNAC_DIR=${SNAPHU_DIR}/codes/snac
 export SNEC_MODELS=/Volumes/erebor/snaphu/alpha1.25_snec
 export HELMDIR=${SNAPHU_DIR}/codes/helmholtz
-#export PYTHONPATH=${SNAC_DIR}:${PYTHONPATH}
+export PYTHONPATH=${SNAC_DIR}:${PYTHONPATH}
 export PYTHONPATH=${PROGS}:${PYTHONPATH}
 #export PYTHONPATH=${HELMDIR}:${PYTHONPATH}
 ################################################
 
+export LANL_DIR=${HOME}/lanl
+export SINGULARITY_EOS_DIR=${LANL_DIR}/code/singularity-eos
+export PYTHONPATH=${SINGULARITY_EOS_DIR}/build/python:${PYTHONPATH}
+
 ####################JULIA####################
-alias julia='/usr/opt/julia-1.6.1/bin/julia'
+#alias julia='/usr/opt/julia-1.6.1/bin/julia'
 ########################################
 
 ####################MESA####################
-#export MESASDK_ROOT=/Applications/mesasdk
 # source $MESASDK_ROOT/bin/mesasdk_init.sh
-
-#export MESA_DIR=/Users/barker/mesa-r12115
 
 # set OMP_NUM_THREADS to be the number of cores on your machine
 export OMP_NUM_THREADS=8
-#export OMPI_CXX=g++-10
+setup_mesa () {
+    export MESA_DIR=${HOME}/code/kavli/mesa-r15140
+    export OMP_NUM_THREADS=8
+    export MESASDK_ROOT=${HOME}/code/kavli/mesasdk
+    source ${MESASDK_ROOT}/bin/mesasdk_init.sh
+    export MESA_CONTRIB_DIR=${HOME}/code/kavli/mesa-contrib
+}
 ############################################
 
 
@@ -198,7 +207,6 @@ alias cpwd='pwd | pbcopy'
 alias show_options='shopt'                  # Show_options: display bash options settings
 alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
 alias cic='set completion-ignore-case On'   # cic:          Make tab-completion case-insensitive
-mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
 alias acf='ssh -XY barker5@duo.acf.utk.edu'
 alias galilinux='ssh brandon@galilinux.pi.infn.it'
 alias rm='rm -i'
@@ -209,15 +217,6 @@ alias jlab='jupyter lab'
 alias thornado='cd $THORNADO_DIR'
 alias snec='cd $SNEC_DIR'
 alias snaphu='cd $SNAPHU_DIR'
-
-# compilers
-#alias gcc='gcc-10'
-#alias g++='g++-10'
-#alias mpic++='mpic++ -std=c++11'
-
-#
-#alias gcc='gcc-10'
-#
 
 #   -------------------------------
 #   3.  FILE AND FOLDER MANAGEMENT
@@ -251,10 +250,28 @@ extract () {
         fi
 }
 
+# list installed packages, interactively. requires fzf
+packages () {
+    pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'
+}
+
 # Runs programs in the background, even after shell closes
 # bkr ./script.sh is now running in the background
 bkr() {
   (nohup "$@" &>/dev/null &)
+}
+
+cloc-git() {
+  git clone --depth 1 "$1" temp-linecount-repo &&
+    printf "('temp-linecount-repo' will be deleted automatically)\n\n\n" &&
+    cloc temp-linecount-repo &&
+    rm -rf temp-linecount-repo
+}
+cloc-git-recursive() {
+  git clone --recursive "$1" temp-linecount-repo &&
+    printf "('temp-linecount-repo' will be deleted automatically)\n\n\n" &&
+    cloc temp-linecount-repo &&
+    rm -rf temp-linecount-repo
 }
 
 # STARTUP ---------- SSH KEY business
@@ -286,21 +303,6 @@ export PATH="/usr/local/sbin:$PATH"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/barker/local/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/barker/local/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/barker/local/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/barker/local/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-conda deactivate
-
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+
+. "$HOME/.cargo/env"
