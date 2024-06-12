@@ -16,6 +16,7 @@ git clone --recursive https://github.com/AstroBarker/dotfiles
 ## Manual Install
 - [Oh My Zsh](https://github.com/ohmyzsh)
 - [Yay](https://github.com/Jguer/yay)
+- [uv](https://github.com/astral-sh/uv) use `install_uv.sh`
 - ...
 
 ## Notes:
