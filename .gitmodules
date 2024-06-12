@@ -1,0 +1,6 @@
+[submodule "ranger/.config/ranger/plugins/ranger_devicons"]
+	path = ranger/.config/ranger/plugins/ranger_devicons
+	url = https://github.com/alexanderjeurissen/ranger_devicons
+[submodule "kitty/.config/kitty/themes/kitty_gruvbox_theme"]
+	path = kitty/.config/kitty/themes/kitty_gruvbox_theme
+	url = https://github.com/wdomitrz/kitty_gruvbox_theme

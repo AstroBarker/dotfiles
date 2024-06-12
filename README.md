@@ -2,26 +2,25 @@
 
 This contains various configuration files (dotfiles) for setting up a new Linux machine.
 It largely assume an Arch Linux based system.
-This is largely for Linux, but there may be remnants of some Mac OS elements in the `.zshrc`.
 
-## Contents:
+These dotfiles are managed / installed with [GNU Stow](https://www.gnu.org/software/stow/).
+Running `stow ${PKGNAME}` will symlink everything from `./$PKGNAME` to where it belongs.
 
-- [zsh](.zshrc)
-- [picom](picom.conf)
-- [neovim](config/nvim/init.vim)
-- [i3](config/i3/config)
-- [polybar](config/polybar/config)
-- [zathura](config/zathura)
-- [ranger](config/ranger)
-- [rofi](config/rofi)
-- [dunst](config/dunst)
-- [kitty](config/kitty)
+## Installation
+I use submodules to include dependencies. 
+The best way to get the source is the following 
+```sh
+git clone --recursive https://github.com/AstroBarker/dotfiles
+```
 
-More will surely be added with time.
+## Manual Install
+- [Oh My Zsh](https://github.com/ohmyzsh)
+- [Yay](https://github.com/Jguer/yay)
+- ...
 
 ## Notes:
 
-These are largely notes for me to document things I needed to install and why.
+These are largely notes for me to document things I might use and why.
 
 What | Why
 ------------ | -------------
@@ -30,6 +29,7 @@ What | Why
 `picom` | Composite manager. Needed for terminal opacity.
 `betterlockscreen` | Nice, light lock screen. For powermenu.
 `trizen` | AUR helper.
+`yay` | AUR helper.
 `nitrogen` | lightweight GUI for setting desktop background.
 `dunst`  | Notification daemon.
 `rofi` | lightweight launcher app.
@@ -51,6 +51,7 @@ What | Why
 `delta` | git syntax highlighter
 `slides` | terminal slideshow
 `tidy` | html formatter
-`ruff` | python linter/formatter
-`jabref` | bibtex gui, tooling
+`ruff` | python linter/formatter from Astral-sh
+`uv` | Rust based pip alternative from Astral-sh
+`jabref` | bibtex gui, tooling, reference manager
 `feh` | image viewer
