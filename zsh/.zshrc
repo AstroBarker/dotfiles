@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -50,15 +43,13 @@ export PYTHONPATH=${SINGULARITY_EOS_DIR}/build/python:${PYTHONPATH}
 ########################################
 
 ####################MESA####################
-# source $MESASDK_ROOT/bin/mesasdk_init.sh
-
 # set OMP_NUM_THREADS to be the number of cores on your machine
 export OMP_NUM_THREADS=8
 setup_mesa () {
     export MESA_DIR=${HOME}/code/kavli/mesa-r15140
     export OMP_NUM_THREADS=8
     export MESASDK_ROOT=${HOME}/code/kavli/mesasdk
-    source ${MESASDK_ROOT}/bin/mesasdk_init.sh
+    source "${MESASDK_ROOT}/bin/mesasdk_init.sh"
     export MESA_CONTRIB_DIR=${HOME}/code/kavli/mesa-contrib
 }
 ############################################
@@ -71,7 +62,7 @@ export ZSH="/home/barker/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="kphoen"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -151,10 +142,6 @@ source $ZSH/oh-my-zsh.sh
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 #########
 # #  ---------------------------------------------------------------------------
@@ -183,7 +170,6 @@ export EDITOR=/usr/bin/nvim
 
 alias vi='nvim'
 alias vim='nvim'
-#alias code='/usr/bin/codium'
 alias weather='curl wttr.in'
 alias cp='cp -v'                           # Preferred 'cp' implementation
 alias mv='mv -v'                           # Preferred 'mv' implementation
@@ -207,6 +193,8 @@ alias cpwd='pwd | pbcopy'
 alias show_options='shopt'                  # Show_options: display bash options settings
 alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
 alias cic='set completion-ignore-case On'   # cic:          Make tab-completion case-insensitive
+
+# --- Clusters ---
 alias acf='ssh -XY barker5@duo.acf.utk.edu'
 alias galilinux='ssh brandon@galilinux.pi.infn.it'
 alias rm='rm -i'
@@ -229,20 +217,20 @@ tarc () { tar -cvzf "$1".tar.gz "$1" ; }          # zipf:         To create a ta
 #   extract:  Extract most know archives with one command
 #   ---------------------------------------------------------
 extract () {
-    if [ -f $1 ] ; then
-        case $1 in
-        *.tar.bz2)   tar xjf $1     ;;
-        *.tar.gz)    tar xzf $1     ;;
-        *.bz2)       bunzip2 $1     ;;
-        *.rar)       unrar e $1     ;;
-        *.gz)        gunzip $1      ;;
-        *.tar)       tar xf $1      ;;
-        *.tbz)      tar xjf $1     ;;
-        *.tbz2)      tar xjf $1     ;;
-        *.tgz)       tar xzf $1     ;;
-        *.zip)       unzip $1       ;;
-        *.Z)         uncompress $1  ;;
-        *.7z)        7z x $1        ;;
+    if [ -f "$1" ] ; then
+        case "$1" in
+        *.tar.bz2)   tar xjf "$1"     ;;
+        *.tar.gz)    tar xzf "$1"     ;;
+        *.bz2)       bunzip2 "$1"     ;;
+        *.rar)       unrar e "$1"     ;;
+        *.gz)        gunzip "$1"      ;;
+        *.tar)       tar xf "$1"      ;;
+        *.tbz)      tar xjf "$1"     ;;
+        *.tbz2)      tar xjf "$1"     ;;
+        *.tgz)       tar xzf "$1"     ;;
+        *.zip)       unzip "$1"       ;;
+        *.Z)         uncompress "$1"  ;;
+        *.7z)        7z x "$1"        ;;
         *)     echo "'$1' cannot be extracted via extract()" ;;
             esac
         else
@@ -300,9 +288,4 @@ fi
 
 export PATH="/usr/local/sbin:$PATH"
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-
-. "$HOME/.cargo/env"
+source "${HOME}/.cargo/env"
