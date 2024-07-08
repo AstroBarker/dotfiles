@@ -52,6 +52,13 @@ setup_mesa () {
     source "${MESASDK_ROOT}/bin/mesasdk_init.sh"
     export MESA_CONTRIB_DIR=${HOME}/code/kavli/mesa-contrib
 }
+setup_mesa_snaphu () {
+    export MESA_DIR=${HOME}/snaphu/code/mesa-r24.03.1
+    export OMP_NUM_THREADS=4
+    export MESASDK_ROOT=${HOME}/snaphu/code/mesasdk
+    source "${MESASDK_ROOT}/bin/mesasdk_init.sh"
+    export MESA_CONTRIB_DIR=${HOME}/code/kavli/mesa-contrib
+}
 ############################################
 
 
@@ -289,3 +296,12 @@ fi
 export PATH="/usr/local/sbin:$PATH"
 
 source "${HOME}/.cargo/env"
+
+# >>> juliaup initialize >>>
+
+# !! Contents within this block are managed by juliaup !!
+
+path=('/home/barker/.juliaup/bin' $path)
+export PATH
+
+# <<< juliaup initialize <<<
