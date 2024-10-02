@@ -1,18 +1,28 @@
 import XMonad
 
+-- Hooks
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
+import XMonad.Hooks.EwmhDesktops
+
+-- Util
 import XMonad.Util.SpawnOnce
 import XMonad.Util.EZConfig
 import XMonad.Util.Loggers
+
+-- Layout
 import XMonad.Layout.Magnifier
 import XMonad.Layout.ThreeColumns
-import XMonad.Hooks.EwmhDesktops
 import XMonad.Layout.Renamed
 import XMonad.Layout.BinarySpacePartition
+import XMonad.Layout.Spacing
+import XMonad.Layout.NoBorders
+
+-- Actions
+import XMonad.Actions.GroupNavigation
 
 main :: IO ()
 main = xmonad
@@ -22,16 +32,21 @@ main = xmonad
      $ myConfig
 
 myConfig = def
-    { modMask    = mod4Mask      -- Rebind Mod to the Super key
-    , layoutHook = myLayout      -- Use custom layouts
-    , manageHook = myManageHook  -- Match on certain windows
-    , terminal   = myTerminal -- term
-    , startupHook = myStartupHook -- starup things
+    { modMask     = mod4Mask                          -- Rebind Mod to the Super key
+    , layoutHook  = spacingWithEdge 5 $ myLayout      -- Use custom layouts
+    , manageHook  = myManageHook                      -- Match on certain windows
+    , terminal    = myTerminal                        -- term
+    , startupHook = myStartupHook                     -- starup things
+    , focusedBorderColor = "#458588"
+    , normalBorderColor  = "#665c54"
     }
   `additionalKeysP`
     [ ("M-S-z", spawn "xscreensaver-command -lock")
     , ("M-C-s", unGrab *> spawn "scrot -s"        )
     , ("M-f"  , spawn "firefox"                   )
+    , ("M-d"  , spawn "rofi -show run"                   )
+--    , ((modm              , xK_t), nextMatch Forward  (className =? "XTerm"))
+--    , ((modm .|. shiftMask, xK_t), nextMatch Backward (className =? "XTerm"))
     ]
 
 myManageHook :: ManageHook
@@ -41,7 +56,7 @@ myManageHook = composeAll
     ]
 
 -- layouts --
-myLayout = tiled ||| Mirror tiled ||| Full ||| emptyBSP ||| threeCol
+myLayout = tiled ||| Mirror tiled ||| noBorders Full ||| emptyBSP ||| threeCol
   where
     threeCol
         = renamed [Replace "ThreeCol"]
@@ -73,7 +88,7 @@ myXmobarPP = def
     ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
 
     blue, lowWhite, magenta, red, white, yellow :: String -> String
-    magenta  = xmobarColor "#ff79c6" ""
+    magenta  = xmobarColor "#d3869b" ""
     blue     = xmobarColor "#bd93f9" ""
     white    = xmobarColor "#f8f8f2" ""
     yellow   = xmobarColor "#f1fa8c" ""
@@ -88,4 +103,3 @@ myStartupHook = do
 --            \--SetPartialStrut true --expand true --width 10 \
 --            \--transparent true --tint 0x5f5f5f --height 18"
   spawnOnce "feh --bg-fill --no-fehbg ~/pictures/wallpapers/outer_wilds.jpg"
-  spawnOnce "picom --config ~/.config/picom/picom.conf"
