@@ -1,4 +1,4 @@
-#
+#!/usr/bin/env bash
 # ~/.bashrc
 #
 
@@ -46,15 +46,14 @@ export PYTHONPATH=${SINGULARITY_EOS_DIR}/build/python:${PYTHONPATH}
 ########################################
 
 ####################MESA####################
-# set OMP_NUM_THREADS to be the number of cores on your machine
-export OMP_NUM_THREADS=8
-setup_mesa () {
-    export MESA_DIR=${HOME}/code/kavli/mesa-r15140
-    export OMP_NUM_THREADS=8
-    export MESASDK_ROOT=${HOME}/code/kavli/mesasdk
-    source ${MESASDK_ROOT}/bin/mesasdk_init.sh
-    export MESA_CONTRIB_DIR=${HOME}/code/kavli/mesa-contrib
-}
+#export OMP_NUM_THREADS=8
+#setup_mesa () {
+#    export MESA_DIR=${HOME}/code/kavli/mesa-r15140
+#    export OMP_NUM_THREADS=8
+#    export MESASDK_ROOT=${HOME}/code/kavli/mesasdk
+#    source "${MESASDK_ROOT}/bin/mesasdk_init.sh"
+#    export MESA_CONTRIB_DIR=${HOME}/code/kavli/mesa-contrib
+#}
 ############################################
 
 #########
@@ -98,16 +97,17 @@ AQUA="\[\033[38;2;104;157;106m\]"    # #689d6a
 BLUE="\[\033[38;2;69;133;136m\]"     # #458588
 YELLOW="\[\033[38;2;215;153;33m\]"   # #d79921
 GREEN="\[\033[38;2;152;151;26m\]"    # #98971a
-ORANGE="\[\033[38;2;175;58;3m\]"
+#ORANGE="\[\033[38;2;175;58;3m\]"
 PURPLE="\[\033[38;2;143;63;113m\]"
-BEIGE="\[\033[38;2;249;245;215\]"
+#BEIGE="\[\033[38;2;249;245;215\]"
 RESET="\[\033[0m\]"
 
 # Set colored prompt with Gruvbox theme
 #PROMPT_COMMAND='PS1="${AQUA}\$(get_virtual_env)${PURPLE}[${BLUE}\u@\h:${YELLOW}\W${PURPLE}]${GREEN}\$(parse_git_branch)${RESET} $ "'
 PROMPT_COMMAND='PS1="${BLUE}\$(get_virtual_env)${PURPLE}[${AQUA}\u@\h:${YELLOW}\W${PURPLE}]${GREEN}$(__git_ps1 " (%s)")${RESET} $ "'
 
-source ~/.git-prompt.sh
+# shellcheck source=/home/barker/.git-prompt.sh
+source "${HOME}/.git-prompt.sh"
 
 export PS1=$PROMPT_COMMAND
 
@@ -199,20 +199,20 @@ tarc () { tar -cvzf "$1".tar.gz "$1" ; }          # zipf:         To create a ta
 #   extract:  Extract most know archives with one command
 #   ---------------------------------------------------------
 extract () {
-    if [ -f $1 ] ; then
-        case $1 in
-        *.tar.bz2)   tar xjf $1     ;;
-        *.tar.gz)    tar xzf $1     ;;
-        *.bz2)       bunzip2 $1     ;;
-        *.rar)       unrar e $1     ;;
-        *.gz)        gunzip $1      ;;
-        *.tar)       tar xf $1      ;;
-        *.tbz)      tar xjf $1     ;;
-        *.tbz2)      tar xjf $1     ;;
-        *.tgz)       tar xzf $1     ;;
-        *.zip)       unzip $1       ;;
-        *.Z)         uncompress $1  ;;
-        *.7z)        7z x $1        ;;
+    if [ -f "$1" ] ; then
+        case "$1" in
+        *.tar.bz2)   tar xjf "$1"     ;;
+        *.tar.gz)    tar xzf "$1"     ;;
+        *.bz2)       bunzip2 "$1"     ;;
+        *.rar)       unrar e "$1"     ;;
+        *.gz)        gunzip "$1"      ;;
+        *.tar)       tar xf "$1"      ;;
+        *.tbz)      tar xjf "$1"     ;;
+        *.tbz2)      tar xjf "$1"     ;;
+        *.tgz)       tar xzf "$1"     ;;
+        *.zip)       unzip "$1"       ;;
+        *.Z)         uncompress "$1"  ;;
+        *.7z)        7z x "$1"        ;;
         *)     echo "'$1' cannot be extracted via extract()" ;;
             esac
         else
@@ -248,6 +248,7 @@ function start_agent {
     /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
     echo succeeded
     chmod 600 "${SSH_ENV}"
+    # shellcheck source=/home/barker/.ssh/environment
     . "${SSH_ENV}" > /dev/null
     /usr/bin/ssh-add;
 }
@@ -255,13 +256,11 @@ function start_agent {
 # Source SSH settings, if applicable
 
 if [ -f "${SSH_ENV}" ]; then
+    # shellcheck source=/home/barker/.ssh/environment
     . "${SSH_ENV}" > /dev/null
-    #ps ${SSH_AGENT_PID} doesn't work under cywgin
-    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+    pgrep -f ssh-agent$ > /dev/null || {
         start_agent;
     }
 else
     start_agent;
 fi
-
-export PATH="/usr/local/sbin:$PATH"
