@@ -67,6 +67,7 @@ export PYTHONPATH=${SINGULARITY_EOS_DIR}/build/python:${PYTHONPATH}
 bind 'set completion-ignore-case on'
 
 alias ls='ls --color=auto'
+alias grep='grep --color'
 bind 'set colored-stats on' # colors in tab autocomplete
 
 # Function to get git branch [DEPRECATED]
