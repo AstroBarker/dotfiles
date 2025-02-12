@@ -1,0 +1,18 @@
+# Color settings for tab completion
+set colored-stats on
+set visible-stats on
+set mark-symlinked-directories on
+set colored-completion-prefix on
+set menu-complete-display-prefix on
+
+# Make tab completion case-insensitive
+set completion-ignore-case on
+
+# Show all possibilities after first tab
+set show-all-if-ambiguous on
+
+# Append / to directories and @ to symlinks
+set visible-stats on
+
+# Color the common prefix in menu-complete
+set colored-completion-prefix on
