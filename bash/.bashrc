@@ -5,27 +5,27 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
-PS1='[\u@\h \W]\$ '
 
-####################THORNADO####################
-export WEAKLIB_DIR=${HOME}/ornl/codes/weaklib
-export THORNADO_DIR=${HOME}/ornl/codes/thornado
-export POSEIDON_DIR=${HOME}/ornl/codes/poseidon
-export AMREX_DIR=${HOME}/ornl/codes/amrex
+####################PROJECT DIRS####################
+export LANL_DIR=${HOME}/lanl
+export ORNL_DIR=${HOME}/ornl
+export SNAPHU_DIR=${HOME}/snaphu
+
+export WEAKLIB_DIR=${ORNL_DIR}/codes/weaklib
+export THORNADO_DIR=${ORNL_DIR}/codes/thornado
+export POSEIDON_DIR=${ORNL_DIR}/codes/poseidon
+export PHOEBUS_DIR=${LANL_DIR}/codes/phoebus
+export AMREX_DIR=${ORNL_DIR}/codes/amrex
 export AMREX_HOME=${AMREX_DIR}
 export THORNADO_HOME=${THORNADO_DIR}
 export WEAKLIB_HOME=${WEAKLIB_DIR}
-export HDF5_DIR=/usr/local/Cellar/hdf5/1.12.0_1
-export HDF5_HOME=${HDF5_DIR}
+#export HDF5_DIR=/usr/local/Cellar/hdf5/1.12.0_1
+#export HDF5_HOME=${HDF5_DIR}
 export WEAKLIB_MACHINE=bbarker
 export THORNADO_MACHINE=bbarker
-################################################
 
 export PTOOLSDIR=${HOME}/Documents/papers/paperTools
 
-####################SNAPHU####################
-export SNAPHU_DIR=${HOME}/snaphu
 export SNEC_DIR=${SNAPHU_DIR}/codes/SNEC
 export PROGS=${SNAPHU_DIR}/codes/progs
 export PROGENITORS=${SNAPHU_DIR}/progenitor_models
@@ -35,7 +35,7 @@ export HELMDIR=${SNAPHU_DIR}/codes/helmholtz
 export PYTHONPATH=${SNAC_DIR}:${PYTHONPATH}
 export PYTHONPATH=${PROGS}:${PYTHONPATH}
 #export PYTHONPATH=${HELMDIR}:${PYTHONPATH}
-################################################
+##################################################
 
 export LANL_DIR=${HOME}/lanl
 export SINGULARITY_EOS_DIR=${LANL_DIR}/code/singularity-eos
@@ -64,6 +64,83 @@ setup_mesa () {
 #   1.  ENVIRONMENT CONFIGURATION
 #   -------------------------------
 
+# case insensitive autocomplete
+bind 'set completion-ignore-case on'
+
+alias ls='ls --color=auto'
+bind 'set colored-stats on' # colors in tab autocomplete
+
+# Function to get git branch [DEPRECATED]
+#parse_git_branch() {
+#    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+#}
+
+# Function to get Python virtual environment
+get_virtual_env() {
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        # Get the parent directory of .venv
+        venv_parent=$(basename "$(dirname "$VIRTUAL_ENV")")
+        echo "($venv_parent) "
+    fi
+}
+
+# Colors
+#CYAN="\[\033[36m\]"
+#BLUE="\[\033[34m\]"
+#GREEN="\[\033[32m\]"
+#RESET="\[\033[0m\]"
+
+# Uncomment the line below for colored prompt
+#PROMPT_COMMAND='PS1="${CYAN}\$(get_virtual_env)${BLUE}[\u@\h:${GREEN}\W${BLUE}]${CYAN}\$(parse_git_branch)${RESET} $ "'
+
+# Gruvbox Colors
+AQUA="\[\033[38;2;104;157;106m\]"    # #689d6a
+BLUE="\[\033[38;2;69;133;136m\]"     # #458588
+YELLOW="\[\033[38;2;215;153;33m\]"   # #d79921
+GREEN="\[\033[38;2;152;151;26m\]"    # #98971a
+ORANGE="\[\033[38;2;175;58;3m\]"
+PURPLE="\[\033[38;2;143;63;113m\]"
+BEIGE="\[\033[38;2;249;245;215\]"
+RESET="\[\033[0m\]"
+
+# Set colored prompt with Gruvbox theme
+#PROMPT_COMMAND='PS1="${AQUA}\$(get_virtual_env)${PURPLE}[${BLUE}\u@\h:${YELLOW}\W${PURPLE}]${GREEN}\$(parse_git_branch)${RESET} $ "'
+PROMPT_COMMAND='PS1="${BLUE}\$(get_virtual_env)${PURPLE}[${AQUA}\u@\h:${YELLOW}\W${PURPLE}]${GREEN}$(__git_ps1 " (%s)")${RESET} $ "'
+
+source ~/.git-prompt.sh
+
+export PS1=$PROMPT_COMMAND
+
+# --- Smart history ---
+# \e[A is up arrow, \C-e moves to end of line
+# # Basic history search
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+
+# Auto-jump to end of line after any editing command
+bind 'set enable-bracketed-paste on'
+bind 'set show-all-if-ambiguous on'
+#bind 'set skip-completed-text on'
+
+# Improved history handling
+HISTSIZE=10000
+HISTFILESIZE=20000
+HISTCONTROL=ignoreboth:erasedups
+
+# Don't put duplicate lines or lines starting with space in the history
+HISTCONTROL=ignoreboth
+
+# Append to the history file, don't overwrite it
+shopt -s histappend
+
+# Update history after each command
+#PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
+
+# Store multiline commands as one command
+shopt -s cmdhist
+
+# Expand ! history substitutions
+shopt -s histverify
 
 #   Set Paths
 #   ------------------------------------------------------------
@@ -91,32 +168,25 @@ alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
 alias ll='ls -FGlAhp'                       # Preferred 'ls' implementation
 alias less='less -FSRXc'                    # Preferred 'less' implementation
 alias cd..='cd ../'                         # Go back 1 directory level (for fast typers)
-alias ..='cd ../'                           # Go back 1 directory level
-alias ...='cd ../../'                       # Go back 2 directory levels
-alias .3='cd ../../../'                     # Go back 3 directory levels
-alias .4='cd ../../../../'                  # Go back 4 directory levels
-alias .5='cd ../../../../../'               # Go back 5 directory levels
-alias .6='cd ../../../../../../'            # Go back 6 directory levels
-alias f='open -a Finder ./'                 # f:            Opens current directory in MacOS Finder
-alias ~="cd ~"                              # ~:            Go Home
 alias c='clear'                             # c:            Clear terminal display
 alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 alias cpwd='pwd | pbcopy'
-alias show_options='shopt'                  # Show_options: display bash options settings
 alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
-alias cic='set completion-ignore-case On'   # cic:          Make tab-completion case-insensitive
+alias jlab='jupyter lab'
+
+# --- Clusters ---
 alias acf='ssh -XY barker5@duo.acf.utk.edu'
 alias galilinux='ssh brandon@galilinux.pi.infn.it'
 alias rm='rm -i'
 alias hpcc='ssh -XY barker49@hpcc.msu.edu'
-alias jlab='jupyter lab'
 
 # Project aliases
 alias thornado='cd $THORNADO_DIR'
 alias snec='cd $SNEC_DIR'
 alias snaphu='cd $SNAPHU_DIR'
+alias phoebus='cd $PHOEBUS_DIR'
 
 #   -------------------------------
 #   3.  FILE AND FOLDER MANAGEMENT
@@ -195,20 +265,3 @@ else
 fi
 
 export PATH="/usr/local/sbin:$PATH"
-
-. "$HOME/.cargo/env"
-
-# >>> juliaup initialize >>>
-
-# !! Contents within this block are managed by juliaup !!
-
-case ":$PATH:" in
-    *:/home/barker/.juliaup/bin:*)
-        ;;
-
-    *)
-        export PATH=/home/barker/.juliaup/bin${PATH:+:${PATH}}
-        ;;
-esac
-
-# <<< juliaup initialize <<<

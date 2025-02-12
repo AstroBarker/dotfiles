@@ -161,6 +161,7 @@ source $ZSH/oh-my-zsh.sh
 #   Set Paths
 #   ------------------------------------------------------------
 export PATH="/usr/local/bin/:$PATH"
+export PATH="${HOME}/.local/bin/:$PATH"
 
 #   Set Default Editor (change 'Nano' to the editor of your choice)
 #   ------------------------------------------------------------
@@ -205,7 +206,7 @@ alias cic='set completion-ignore-case On'   # cic:          Make tab-completion 
 alias acf='ssh -XY barker5@duo.acf.utk.edu'
 alias galilinux='ssh brandon@galilinux.pi.infn.it'
 alias rm='rm -i'
-alias hpcc='ssh -XY barker49@hpcc.msu.edu'
+alias hpcc='ssh -tXY barker49@hpcc.msu.edu'
 alias jlab='jupyter lab'
 
 # Project aliases
@@ -305,3 +306,8 @@ path=('/home/barker/.juliaup/bin' $path)
 export PATH
 
 # <<< juliaup initialize <<<
+
+[ -f "/home/barker/.ghcup/env" ] && . "/home/barker/.ghcup/env" # ghcup-env
+
+# asdf
+. /opt/asdf-vm/asdf.sh
