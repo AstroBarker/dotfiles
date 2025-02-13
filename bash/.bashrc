@@ -14,7 +14,8 @@ export SNAPHU_DIR=${HOME}/snaphu
 export WEAKLIB_DIR=${ORNL_DIR}/codes/weaklib
 export THORNADO_DIR=${ORNL_DIR}/codes/thornado
 export POSEIDON_DIR=${ORNL_DIR}/codes/poseidon
-export PHOEBUS_DIR=${LANL_DIR}/codes/phoebus
+export PHOEBUS_DIR=${LANL_DIR}/code/phoebus
+export PARTHENON_DIR=${LANL_DIR}/code/parthenon
 export AMREX_DIR=${ORNL_DIR}/codes/amrex
 export AMREX_HOME=${AMREX_DIR}
 export THORNADO_HOME=${THORNADO_DIR}
@@ -34,6 +35,7 @@ export SNEC_MODELS=/Volumes/erebor/snaphu/alpha1.25_snec
 export HELMDIR=${SNAPHU_DIR}/codes/helmholtz
 export PYTHONPATH=${SNAC_DIR}:${PYTHONPATH}
 export PYTHONPATH=${PROGS}:${PYTHONPATH}
+export PYTHONPATH=${PARTHENON_DIR}/scripts/python/packages/parthenon_tools/parthenon_tools/:${PYTHONPATH}
 #export PYTHONPATH=${HELMDIR}:${PYTHONPATH}
 ##################################################
 
