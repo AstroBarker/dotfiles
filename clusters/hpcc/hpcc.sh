@@ -1,1 +1,2 @@
-export PATH="${HOME}/local/squashfs-root/usr/bin/:$PATH"
+#!/usr/bin/env bash
+sed -i 's/nvim/vim/g' ${HOME}/.bashrc
