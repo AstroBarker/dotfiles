@@ -219,6 +219,10 @@ extract () {
         fi
 }
 
+packages () {
+    pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'
+}
+
 
 # Runs programs in the background, even after shell closes
 # bkr ./script.sh is now running in the background
@@ -263,3 +267,5 @@ if [ -f "${SSH_ENV}" ]; then
 else
     start_agent;
 fi
+
+. "$HOME/.local/bin/env"

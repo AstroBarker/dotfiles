@@ -43,7 +43,7 @@ myConfig = def
   `additionalKeysP`
     [ ("M-S-z", spawn "xscreensaver-command -lock")
     , ("M-C-s", unGrab *> spawn "scrot -s"        )
-    , ("M-f"  , spawn "firefox"                   )
+    , ("M-f"  , spawn "librewolf"                   )
     , ("M-d"  , spawn "rofi -show run"                   )
 --    , ((modm              , xK_t), nextMatch Forward  (className =? "XTerm"))
 --    , ((modm .|. shiftMask, xK_t), nextMatch Backward (className =? "XTerm"))
