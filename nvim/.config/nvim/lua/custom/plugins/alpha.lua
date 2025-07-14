@@ -1,26 +1,26 @@
-local alpha = require("alpha")
+local alpha = require 'alpha'
 local function button(sc, txt, keybind)
-  local sc_ = sc:gsub("%s", ""):gsub("SPC", "<leader>")
+  local sc_ = sc:gsub('%s', ''):gsub('SPC', '<leader>')
   local opts = {
-    position = "center",
+    position = 'center',
     text = txt,
     shortcut = sc,
     cursor = 5,
     width = 36,
-    align_shortcut = "right",
-    hl = "AlphaButtons",
+    align_shortcut = 'right',
+    hl = 'AlphaButtons',
   }
 
   if keybind then
-    opts.keymap = { "n", sc_, keybind, { noremap = true, silent = true } }
+    opts.keymap = { 'n', sc_, keybind, { noremap = true, silent = true } }
   end
 
   return {
-    type = "button",
+    type = 'button',
     val = txt,
     on_press = function()
       local key = vim.api.nvim_replace_termcodes(sc_, true, false, true)
-      vim.api.nvim_feedkeys(key, "normal", false)
+      vim.api.nvim_feedkeys(key, 'normal', false)
     end,
     opts = opts,
   }
@@ -33,9 +33,9 @@ local col = function(strlist, opts)
   -- column spacing
   local padding = 6
   -- fill lines up to the maximim length with 'fillchar'
-  local fillchar = " "
+  local fillchar = ' '
   -- columns padding char (for testing)
-  local padchar = " "
+  local padchar = ' '
 
   -- define maximum string length in a table
   local maxlen = function(str)
@@ -66,7 +66,7 @@ local col = function(strlist, opts)
   local values = {}
   -- process all the lines
   for i = 1, maxlen(strlist) do
-    local str = ""
+    local str = ''
     -- process all the columns but last, because we dont wand extra padding
     -- after last column
     for column = 1, #strlist - 1 do
@@ -91,7 +91,7 @@ local col = function(strlist, opts)
     end
 
     -- insert result into output table
-    table.insert(values, { type = "text", val = str, opts = opts })
+    table.insert(values, { type = 'text', val = str, opts = opts })
   end
 
   return values
@@ -101,24 +101,22 @@ end
 local default = {}
 
 default.ascii = {
-"⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⣀⣤⣶⣾⣿⣿⣷⣶⣤⣀⠀⠀⣀⣀⠀⠀⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠜⠉⣿⡆⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⢰⣿⠉⠃⠀⠀⠀⠀⠀",
-"⠀⢀⣤⣴⣦⣄⣴⠟⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡎⢻⣦⣠⣴⣦⣄⠀⠀",
-"⠀⡞⠁⣠⣾⢿⣧⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⣽⡿⣷⣄⠈⢷⠀",
-"⠀⣠⣾⠟⠁⢸⣿⠀⠘⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⠀⣿⡇⠈⠻⣷⣄⠀",
-"⣰⡿⠁⠀⢀⣾⣏⣾⣄⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⣰⣷⣹⣷⠀⠀⠈⢿⣆",
-"⣿⡇⠀⢠⣾⠏⢸⣿⣿⣿⣿⠋⢻⣿⣿⣿⣿⡟⠙⣿⣿⣿⣿⡇⠹⣷⡀⠀⢸⣿",
-"⠹⣿⣴⡿⠋⠀⠈⠛⠉⣹⣿⣦⣄⡹⣿⣿⣋⣠⣶⣿⣏⠉⠛⠁⠀⠙⢿⣦⣿⠏",
-"⠀⣸⣿⠿⠿⣿⣾⣿⡿⠿⣿⣿⣿⣿⡆⢰⣿⣿⣿⣿⠿⢿⣿⣶⣿⠿⠿⣻⣇⠀",
-"⠀⣿⡇⢀⣴⣶⣤⣀⣴⣿⠿⣻⡿⣿⣧⣾⣿⢿⣟⠿⣿⣦⣀⣤⣶⣦⠀⢸⣿⠀",
-"⠀⢿⣧⠈⠃⢀⣵⣿⡋⠁⢀⣿⡷⣿⡇⢻⣿⣿⣿⡀⠈⢛⣿⣮⡀⠘⠀⣼⡟⠀",
-"⠀⠈⠻⣷⣤⣟⣋⣿⣧⣴⡿⠋⠀⣿⡇⢸⣿⠀⠙⢿⣦⣼⣿⣙⣻⣤⣾⠟⠁⠀",
-"⠀⠀⠀⠈⢽⣿⠛⢻⣏⢉⣤⣶⣶⣿⠁⠈⣿⣶⣶⣤⡉⣽⡟⠛⣿⡏⠁⠀⠀⠀",
-"⠀⠀⠀⠀⠈⠿⣷⣾⣾⣟⣉⣠⣿⢿⡇⢸⠿⣿⣄⣙⣻⣷⣷⣾⠿⠁⠀⠀⠀⠀",
-"⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⠿⠛⢁⡼⠃⠘⢦⡈⠛⠿⠟⠃⠀⠀⠀⠀⠀⠀⠀⠀",
+  '⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⣀⣤⣶⣾⣿⣿⣷⣶⣤⣀⠀⠀⣀⣀⠀⠀⠀⠀⠀⠀',
+  '⠀⠀⠀⠀⠀⠜⠉⣿⡆⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⢰⣿⠉⠃⠀⠀⠀⠀⠀',
+  '⠀⢀⣤⣴⣦⣄⣴⠟⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡎⢻⣦⣠⣴⣦⣄⠀⠀',
+  '⠀⡞⠁⣠⣾⢿⣧⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⣽⡿⣷⣄⠈⢷⠀',
+  '⠀⣠⣾⠟⠁⢸⣿⠀⠘⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⠀⣿⡇⠈⠻⣷⣄⠀',
+  '⣰⡿⠁⠀⢀⣾⣏⣾⣄⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⣰⣷⣹⣷⠀⠀⠈⢿⣆',
+  '⣿⡇⠀⢠⣾⠏⢸⣿⣿⣿⣿⠋⢻⣿⣿⣿⣿⡟⠙⣿⣿⣿⣿⡇⠹⣷⡀⠀⢸⣿',
+  '⠹⣿⣴⡿⠋⠀⠈⠛⠉⣹⣿⣦⣄⡹⣿⣿⣋⣠⣶⣿⣏⠉⠛⠁⠀⠙⢿⣦⣿⠏',
+  '⠀⣸⣿⠿⠿⣿⣾⣿⡿⠿⣿⣿⣿⣿⡆⢰⣿⣿⣿⣿⠿⢿⣿⣶⣿⠿⠿⣻⣇⠀',
+  '⠀⣿⡇⢀⣴⣶⣤⣀⣴⣿⠿⣻⡿⣿⣧⣾⣿⢿⣟⠿⣿⣦⣀⣤⣶⣦⠀⢸⣿⠀',
+  '⠀⢿⣧⠈⠃⢀⣵⣿⡋⠁⢀⣿⡷⣿⡇⢻⣿⣿⣿⡀⠈⢛⣿⣮⡀⠘⠀⣼⡟⠀',
+  '⠀⠈⠻⣷⣤⣟⣋⣿⣧⣴⡿⠋⠀⣿⡇⢸⣿⠀⠙⢿⣦⣼⣿⣙⣻⣤⣾⠟⠁⠀',
+  '⠀⠀⠀⠈⢽⣿⠛⢻⣏⢉⣤⣶⣶⣿⠁⠈⣿⣶⣶⣤⡉⣽⡟⠛⣿⡏⠁⠀⠀⠀',
+  '⠀⠀⠀⠀⠈⠿⣷⣾⣾⣟⣉⣠⣿⢿⡇⢸⠿⣿⣄⣙⣻⣷⣷⣾⠿⠁⠀⠀⠀⠀',
+  '⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⠿⠛⢁⡼⠃⠘⢦⡈⠛⠿⠟⠃⠀⠀⠀⠀⠀⠀⠀⠀',
 }
-
-
 
 ---default.ascii = {
 ---  "   ⣴⣶⣤⡤⠦⣤⣀⣤⠆     ⣈⣭⣿⣶⣿⣦⣼⣆          ",
@@ -135,88 +133,87 @@ default.ascii = {
 ---}
 
 default.header = {
-  type = "text",
+  type = 'text',
   val = default.ascii,
   opts = {
-    position = "center",
-    hl = "SpecialComment",
+    position = 'center',
+    hl = 'SpecialComment',
   },
 }
 
 -- key reference
 local telescope = {
-  "<spc>ff  find files",
-  "<spc>fb  buffers",
-  "<spc>fg  live grep",
-  "<spc>fb  buffers",
-  "<Ctrl-/> fuzzy search",
-  "<spc>fh  help",
+  '<spc>sf  find files',
+  '<spc>sb  buffers',
+  '<spc>sg  live grep',
+  '<spc>sb  buffers',
+  '<Ctrl-/> fuzzy search',
+  '<spc>fh  help',
 }
 
 local buffers = {
-  "<spc>bd   buff delete",
-  "<spc>bn   buff next",
-  "<spc>bp   buff prev",
+  '<spc>bd   buff delete',
+  '<spc>bn   buff next',
+  '<spc>bp   buff prev',
 }
 
 local git_blame_and_lsp_utils = {
-  "<spc>gbt  toggle blame",
-  "<spc>gbo  open blame url",
-  "",
-  "<spc>lio  lsp organize",
-  "<spc>lrn  lsp rename file",
-  "<spc>ll   lsp import all",
+  '<spc>gbt  toggle blame',
+  '<spc>gbo  open blame url',
+  '',
+  '<spc>lio  lsp organize',
+  '<spc>lrn  lsp rename file',
+  '<spc>ll   lsp import all',
 }
 
 local split = {
-  "<spc>sl  vertical split",
-  "<spc>sj  horizontal split",
-  "<Ctrl-w> cycle splits",
+  '<spc>sl  vertical split',
+  '<spc>sj  horizontal split',
+  '<Ctrl-w> cycle splits',
 }
 
 local lsp_nav1 = {
-  "<spc>gD  goto decl",
-  "<spc>gd  goto def",
-  "<spc>gi  goto impl",
-  "<spc>]d  goto next",
-  "<spc>[d  goto prev",
-  "",
+  '<spc>grD  goto decl',
+  '<spc>grd  goto def',
+  '<spc>gri  goto impl',
+  '<spc>grn  rename',
+  '',
 }
 
 local lsp_nav2 = {
-  "<spc>K    view hover",
-  "<spc>E    open float",
-  "<spc>lf   formatting",
-  "<Ctrl-s>  sig help",
-  "<spc>ca   code action",
-  "<spc>vf   get refs",
+  '<spc>K    view hover',
+  '<spc>E    open float',
+  '<spc>lf   formatting',
+  '<Ctrl-s>  sig help',
+  '<spc>ca   code action',
+  '<spc>vf   get refs',
 }
 
 local empty = {
-  "",
-  "",
-  "",
-  "",
-  "",
+  '',
+  '',
+  '',
+  '',
+  '',
 }
 
 default.buttons = {
-  type = "group",
+  type = 'group',
   val = {
-    button("e", "  new", ":ene <BAR> startinsert <CR>"),
-    button("c", "  config", ":e ~/.config/nvim/init.lua <CR>"),
-    button("u", "  update", ":PackerSync<CR>"),
-    button("q", "  quit", ":qa<CR>"),
+    button('e', '  new', ':ene <BAR> startinsert <CR>'),
+    button('c', '  config', ':e ~/.config/nvim/init.lua <CR>'),
+    button('u', '  update', ':PackerSync<CR>'),
+    button('q', '  quit', ':qa<CR>'),
   },
-  position = "center",
+  position = 'center',
 }
 
 default.block1 = {
-  type = "group",
+  type = 'group',
   val = col({ telescope, buffers, split }, {
-    position = "center",
+    position = 'center',
     hl = {
-      { "SpecialKey", 0, -1 },
+      { 'SpecialKey', 0, -1 },
       -- { "MoreMsg", 13, 20 },
       -- { "MoreMsg", 39, 47 },
       -- { "MoreMsg", 67, 74 },
@@ -228,11 +225,11 @@ default.block1 = {
 }
 
 default.block2 = {
-  type = "group",
+  type = 'group',
   val = col({ lsp_nav1, empty, lsp_nav2 }, {
-    position = "center",
+    position = 'center',
     hl = {
-      { "SpecialKey", 0, -1 },
+      { 'SpecialKey', 0, -1 },
       -- { "MoreMsg", 12, 20 },
       -- { "MoreMsg", 43, 51 },
       -- { "MoreMsg", 67, 75 },
@@ -244,22 +241,22 @@ default.block2 = {
 }
 
 -- load config
-alpha.setup({
+alpha.setup {
   layout = {
-    { type = "padding", val = 1 },
+    { type = 'padding', val = 1 },
     default.header,
-    { type = "padding", val = 1 },
+    { type = 'padding', val = 1 },
     default.buttons,
-    { type = "padding", val = 1 },
+    { type = 'padding', val = 1 },
     default.block1,
-    { type = "padding", val = 1 },
+    { type = 'padding', val = 1 },
     default.block2,
-    { type = "padding", val = 20 },
+    { type = 'padding', val = 20 },
   },
   opts = {},
-})
+}
 
 -- autocmd
 -- hide/unhide tabs when toggling Alpha
 -- vim.cmd([[ autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2 ]])
-
+return {}
