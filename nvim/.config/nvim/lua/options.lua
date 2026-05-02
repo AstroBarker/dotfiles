@@ -29,8 +29,8 @@ vim.o.breakindent = true
 vim.o.undofile = true
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
-vim.o.ignorecase = true
-vim.o.smartcase = true
+vim.o.ignorecase = false
+vim.o.smartcase = false
 
 -- Keep signcolumn on by default
 vim.o.signcolumn = 'yes'
@@ -44,6 +44,13 @@ vim.o.timeoutlen = 300
 -- Configure how new splits should be opened
 vim.o.splitright = true
 vim.o.splitbelow = true
+
+-- tabs
+vim.o.expandtab = true
+vim.o.softtabstop = 2
+vim.o.tabstop = 2
+-- vim.o.smartindent = true
+vim.api.nvim_command [[exec "autocmd FileType make setlocal noexpandtab"]]
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
