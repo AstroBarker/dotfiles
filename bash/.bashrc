@@ -49,13 +49,13 @@ export PYTHONPATH=${SINGULARITY_EOS_DIR}/build/python:${PYTHONPATH}
 
 ####################MESA####################
 #export OMP_NUM_THREADS=8
-#setup_mesa () {
-#    export MESA_DIR=${HOME}/code/kavli/mesa-r15140
-#    export OMP_NUM_THREADS=8
-#    export MESASDK_ROOT=${HOME}/code/kavli/mesasdk
-#    source "${MESASDK_ROOT}/bin/mesasdk_init.sh"
+setup_mesa () {
+    export MESA_DIR=${HOME}/code/kavli/mesa-26.04.1
+    export OMP_NUM_THREADS=8
+    export MESASDK_ROOT=${HOME}/code/kavli/mesasdk-26.3.2
+    source "${MESASDK_ROOT}/bin/mesasdk_init.sh"
 #    export MESA_CONTRIB_DIR=${HOME}/code/kavli/mesa-contrib
-#}
+}
 ############################################
 
 #########
@@ -223,6 +223,13 @@ packages () {
     pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'
 }
 
+function y() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  command yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd < "$tmp"
+  [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+  command rm -f -- "$tmp"
+}
 
 # Runs programs in the background, even after shell closes
 # bkr ./script.sh is now running in the background
@@ -267,5 +274,8 @@ if [ -f "${SSH_ENV}" ]; then
 else
     start_agent;
 fi
+
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --bash)"
 
 . "$HOME/.local/bin/env"
