@@ -1,0 +1,11 @@
+# shellcheck shell=bash
+# Optional shell integrations.
+
+if command -v fzf >/dev/null; then
+  eval "$(fzf --bash)"
+fi
+
+if [[ -r "$HOME/.local/bin/env" ]]; then
+  # shellcheck source=/dev/null
+  source "$HOME/.local/bin/env"
+fi

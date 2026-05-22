@@ -1,0 +1,38 @@
+# shellcheck shell=bash
+# SSH agent setup.
+
+start_agent() {
+  local ssh_env="$HOME/.ssh/environment"
+
+  command -v ssh-agent >/dev/null || return 127
+  command -v ssh-add >/dev/null || return 127
+  command mkdir -p "$HOME/.ssh" || return
+
+  printf "Initialising new SSH agent...\n"
+  ssh-agent | sed 's/^echo/#echo/' > "$ssh_env"
+  chmod 600 "$ssh_env"
+
+  # shellcheck source=/dev/null
+  source "$ssh_env" >/dev/null
+  ssh-add
+}
+
+setup_ssh_agent() {
+  local ssh_env="$HOME/.ssh/environment"
+
+  command -v ssh-add >/dev/null || return 127
+
+  [[ -n "$SSH_AUTH_SOCK" ]] && ssh-add -l >/dev/null 2>&1 && return
+
+  if [[ -f "$ssh_env" ]]; then
+    # shellcheck source=/dev/null
+    source "$ssh_env" >/dev/null
+    command -v pgrep >/dev/null && pgrep -f 'ssh-agent$' >/dev/null && return
+  fi
+
+  start_agent
+}
+
+if [[ -t 0 ]]; then
+  setup_ssh_agent
+fi

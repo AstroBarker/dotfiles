@@ -1,0 +1,8 @@
+# shellcheck shell=bash
+# Copy this file to ~/.config/bash/projects and customize project paths.
+
+export PROJECT_ROOT="$HOME/code/example"
+
+path_prepend PYTHONPATH "$PROJECT_ROOT/python"
+
+alias project='cd "$PROJECT_ROOT"'

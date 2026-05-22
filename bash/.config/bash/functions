@@ -1,0 +1,103 @@
+# shellcheck shell=bash
+# Reusable shell helpers.
+
+path_prepend() {
+  local var_name="$1"
+  local path_entry="$2"
+  local current_value="${!var_name:-}"
+
+  [[ -d "$path_entry" ]] || return 0
+
+  case ":$current_value:" in
+    *":$path_entry:"*) ;;
+    *) export "$var_name=$path_entry${current_value:+:$current_value}" ;;
+  esac
+}
+
+path_entries() {
+  printf '%s' "$PATH" | tr ':' '\n'
+}
+
+far() {
+  find ./ -type f -exec sed -i -e "s/$1/$2/g" {} \;
+}
+
+zipf() {
+  zip -r "$1".zip "$1"
+}
+
+tarc() {
+  tar -cvzf "$1".tar.gz "$1"
+}
+
+numFiles() {
+  find . -maxdepth 1 -type f | wc -l
+}
+
+extract() {
+  if [[ ! -f "$1" ]]; then
+    printf "'%s' is not a valid file\n" "$1"
+    return 1
+  fi
+
+  case "$1" in
+    *.tar.bz2 | *.tbz | *.tbz2) tar xjf "$1" ;;
+    *.tar.gz | *.tgz) tar xzf "$1" ;;
+    *.bz2) bunzip2 "$1" ;;
+    *.rar) unrar e "$1" ;;
+    *.gz) gunzip "$1" ;;
+    *.tar) tar xf "$1" ;;
+    *.zip) unzip "$1" ;;
+    *.Z) uncompress "$1" ;;
+    *.7z) 7z x "$1" ;;
+    *) printf "'%s' cannot be extracted via extract()\n" "$1"; return 1 ;;
+  esac
+}
+
+packages() {
+  command -v pacman >/dev/null || return 127
+  command -v fzf >/dev/null || return 127
+
+  pacman -Qq |
+    fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'
+}
+
+y() {
+  command -v yazi >/dev/null || return 127
+
+  local tmp cwd
+  tmp="$(mktemp -t "yazi-cwd.XXXXXX")" || return
+
+  command yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd < "$tmp"
+  if [[ "$cwd" != "$PWD" && -d "$cwd" ]]; then
+    builtin cd -- "$cwd" || return
+  fi
+  command rm -f -- "$tmp"
+}
+
+bkr() {
+  (nohup "$@" >/dev/null 2>&1 &)
+}
+
+cloc-git() {
+  local repo_dir
+  repo_dir="$(mktemp -d -t "cloc-git.XXXXXX")" || return
+
+  git clone --depth 1 "$1" "$repo_dir" &&
+    printf "('%s' will be deleted automatically)\n\n\n" "$repo_dir" &&
+    cloc "$repo_dir"
+
+  command rm -rf -- "$repo_dir"
+}
+
+cloc-git-recursive() {
+  local repo_dir
+  repo_dir="$(mktemp -d -t "cloc-git.XXXXXX")" || return
+
+  git clone --recursive "$1" "$repo_dir" &&
+    printf "('%s' will be deleted automatically)\n\n\n" "$repo_dir" &&
+    cloc "$repo_dir"
+
+  command rm -rf -- "$repo_dir"
+}

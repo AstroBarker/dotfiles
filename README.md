@@ -27,6 +27,7 @@ What | Why
 `kitty` | terminal emulator.
 `alacritty` | terminal emulator.
 `picom` | Composite manager. Needed for terminal opacity.
+`Zellij` | Terminal multiplexer.
 `betterlockscreen` | Nice, light lock screen. For powermenu.
 `trizen` | AUR helper.
 `yay` | AUR helper.
@@ -43,8 +44,7 @@ What | Why
 `nvim` | NeoVim. Fork of Vim. Best text editor (?).
 `polybar` | Status bar.
 `xrdp` | Used for settings in polybar.
-`ranger` | Lightweight terminal-based file manager.
-`ranger icons` | icons for ranger
+`yazi` | Lightweight terminal-based file manager.
 `zathura` | PDF, EPUB and CBR viewer. Lovely.
 `zsh` | Zsh shell.
 `powerlevel10k` | responsive zsh theme.

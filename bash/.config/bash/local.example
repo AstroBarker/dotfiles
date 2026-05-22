@@ -1,0 +1,6 @@
+# shellcheck shell=bash
+# Copy this file to ~/.config/bash/local and customize per-machine settings.
+
+export EDITOR=nvim
+
+alias cluster='ssh -XY user@example.org'

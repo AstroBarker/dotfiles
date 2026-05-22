@@ -1,8 +1,9 @@
 [core]
-	editor = nvim
+  editor = nvim
+  pager = delta
 [user]
-	name = Brandon Barker
-	email = bbarker.py@protonmail.ch
+  name = Brandon Barker
+  email = bbarker.py@protonmail.ch
 
 [pull]
   rebase = true
@@ -26,3 +27,8 @@
 
 [interactive]
   diffFilter = delta --color-only
+
+[delta]
+  navigate = true    # use n and N to move between files
+  light = false      # set to true if you use a light terminal theme
+  side-by-side = true

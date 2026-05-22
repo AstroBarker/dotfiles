@@ -1,0 +1,64 @@
+# shellcheck shell=bash
+# Copy this file to ~/.config/bash/toolchains and customize optional toolchains.
+
+# Set compiler environment variables consumed by CMake, Make, and similar tools.
+# Usage:
+#   compiler gcc [cc] [cxx]
+#   compiler clang [cc] [cxx]
+#   compiler intel [cc] [cxx] [fc]
+#   compiler clear
+#   compiler -h
+compiler() {
+  case "$1" in
+    gcc)
+      export CC="${2:-gcc}"
+      export CXX="${3:-g++}"
+      unset FC
+      ;;
+    clang)
+      export CC="${2:-clang}"
+      export CXX="${3:-clang++}"
+      unset FC
+      ;;
+    intel)
+      local oneapi_root="${ONEAPI_ROOT:-/opt/intel/oneapi}"
+
+      if [[ -r "$oneapi_root/setvars.sh" ]]; then
+        # shellcheck source=/dev/null
+        source "$oneapi_root/setvars.sh"
+      fi
+
+      export CC="${2:-icx}"
+      export CXX="${3:-icpx}"
+      export FC="${4:-ifx}"
+      ;;
+    clear | none | reset)
+      unset CC CXX FC
+      printf 'unset CC CXX FC\n'
+      return
+      ;;
+    "" | -h | --help | help)
+      cat <<'EOF'
+usage:
+  compiler gcc [cc] [cxx]
+  compiler clang [cc] [cxx]
+  compiler intel [cc] [cxx] [fc]
+  compiler clear
+
+examples:
+  compiler gcc
+  compiler gcc gcc-14 g++-14
+  compiler clang clang-18 clang++-18
+  compiler intel icx icpx ifx
+EOF
+      return
+      ;;
+    *)
+      printf 'unknown compiler family: %s\n' "$1" >&2
+      return 2
+      ;;
+  esac
+
+  printf 'CC=%s\nCXX=%s\n' "$CC" "$CXX"
+  [[ -n "${FC:-}" ]] && printf 'FC=%s\n' "$FC"
+}
